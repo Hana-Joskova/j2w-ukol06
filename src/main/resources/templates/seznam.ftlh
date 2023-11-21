@@ -1,24 +1,29 @@
 [#ftl]
 [@c.page]
+[#list osoby]
+ [#items as clovek]
     <div class="seznam">
-        <a href="/detail">
-            <div class="vizitka">
-                <div class="jmeno">Dita (Přikrylová) Formánková</div>
-                <div class="firma">Czechitas z. s.</div>
-                <div class="udaje">
-                    <div class="adresa">
-                        <div>Václavské náměstí 837/11</div>
-                        <div><span>11000</span> <span>Praha 1</span></div>
-                    </div>
+         <a href="/${clovek.id}">
+               <div class="vizitka">
+                   <div class="jmeno">${clovek.celeJmeno}</div>
+                   <div class="firma">${clovek.firma}</div>
+                   <div class="udaje">
+                       <div class="adresa">
+                           <div>${clovek.ulice}</div>
+                           <div>${clovek.obec}</div>
+                           <div>${clovek.psc}</div>
+                       </div>
                     <div class="kontakty">
-                        <div><i class="las la-at"></i> <span>dita@czechitas.cs</span></div>
-                        <div><i class="las la-phone-alt"></i> <span>+420 800123456</span></div>
-                        <div><i class="las la-globe"></i> <span>www.czechitas.cz</span></div>
+                         <div><i class="bi bi-at"></i> ${clovek.email!""}</div>
+                                            <div><i class="bi bi-phone"></i> ${clovek.telefon!""}</div>
+                                            <div><i class="bi bi-globe"></i> ${clovek.web!""}</div>
                     </div>
                 </div>
             </div>
         </a>
 
+  [/#items]
+    [/#list]
         <a href="/nova">
             <div class="vizitka vizitka--nova">
                 <svg width="100" height="100">
@@ -29,3 +34,4 @@
         </a>
     </div>
 [/@c.page]
+
