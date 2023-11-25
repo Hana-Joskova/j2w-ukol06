@@ -18,8 +18,7 @@ public class VizitkaController {
     private final VizitkaRepository vizitkaRepository;
 
     @Autowired
-    public VizitkaController(VizitkaRepository repository)
-    {
+    public VizitkaController(VizitkaRepository repository) {
         this.vizitkaRepository = repository;
     }
 
@@ -53,14 +52,40 @@ public class VizitkaController {
     @GetMapping("/{id:[0-9]+}")
     public Object detail(@PathVariable Integer id) {
         var vizitka = vizitkaRepository.findById(id);
-        if(vizitka.isEmpty()) {
+        if (vizitka.isEmpty()) {
             return ResponseEntity.notFound().build();
-        }
-        else {
+        } else {
             return new ModelAndView("vizitka")
                     .addObject("vizitka", vizitka.get());
         }
     }
+
+    @PostMapping(value = "/editovat/{id:[0-9]+}")
+    public String ulozit(@PathVariable Integer id, @ModelAttribute("osoba") @Valid Vizitka osoba, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "detail";
+        }
+        vizitkaRepository.save(osoba);
+        return "redirect:/";
+    }
+
+    @PostMapping(value = "/{id:[0-9]+}", params = "akce=smazat")
+    public String smazat(@PathVariable Integer id) {
+        vizitkaRepository.deleteById(id);
+        return "redirect:/";
+    }
+
+    @GetMapping("/editovat/{id:[0-9]+}")
+    public Object editovat(@PathVariable Integer id) {
+        var vizitka = vizitkaRepository.findById(id);
+        if (vizitka.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return new ModelAndView("formular")
+                    .addObject("osoba", vizitka.get());
+        }
+    }
+
 }
 
 

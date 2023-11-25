@@ -1,6 +1,8 @@
 [#ftl]
 [@c.page]
+
     <div class="detail">
+
         [@form.form method="post" class="vizitka" bind="osoba"]
             [@form.input name="celeJmeno" label="Jméno" maxlength="100" required="required" /]
             [@form.input name="firma" label="Firma" maxlength="100" required="required" /]
@@ -10,9 +12,11 @@
             [@form.input name="email" label="E-mail *" maxlength="100" type="email" /]
             [@form.input name="telefon" label="Telefon *" maxlength="100" type="tel" /]
             [@form.input name="web" label="Web *" maxlength="100" type="url" /]
+
             <div class="form-controls">
                 <button type="submit">Odeslat</button>
             </div>
+
         [/@form.form]
 
         [@c.back /]
